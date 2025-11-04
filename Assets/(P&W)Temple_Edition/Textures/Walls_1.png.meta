@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 9eecced41e87a9449a75b56d4cab5761
+AssetOrigin:
+  serializedVersion: 1
+  productId: 33637
+  packageName: (P&W) Temple Edition
+  packageVersion: 1.0
+  assetPath: Assets/(P&W)Temple_Edition/Textures/Walls_1.png
+  uploadId: 57253
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -7,7 +14,7 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
-    sRGBTexture: 1
+    sRGBTexture: 0
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -54,7 +61,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 1
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -128,10 +135,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 33637
-  packageName: (P&W) Temple Edition
-  packageVersion: 1.0
-  assetPath: Assets/(P&W)Temple_Edition/Textures/Walls_1.png
-  uploadId: 57253
