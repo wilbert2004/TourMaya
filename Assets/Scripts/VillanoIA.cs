@@ -5,12 +5,16 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 public class VillanoIA : MonoBehaviour
 {
-    public Transform objetivo; // el jugador o lo que persigue
-    public float rango = 10f;  // distancia para empezar a perseguir
+    public Transform objetivo;       // jugador
+    public float rango = 10f;        // distancia para perseguir
+    public float rangoAtaque = 2f;   // distancia para atacar
     public float velocidad = 3f;
+    public float daño = 10f;
+    public float tiempoEntreAtaques = 1.5f;
 
     private NavMeshAgent agente;
     private Animator anim;
+    private float tiempoAtaque;
 
     void Start()
     {
@@ -25,23 +29,46 @@ public class VillanoIA : MonoBehaviour
 
         float distancia = Vector3.Distance(transform.position, objetivo.position);
 
-        if (distancia <= rango)
+        // Si está lejos → caminar hacia el jugador
+        if (distancia <= rango && distancia > rangoAtaque)
         {
+            agente.isStopped = false;
             agente.SetDestination(objetivo.position);
+        }
+        // Si está dentro del rango de ataque → golpear
+        else if (distancia <= rangoAtaque)
+        {
+            agente.isStopped = true;
+            Atacar();
         }
         else
         {
-            agente.ResetPath(); // se queda quieto si está lejos
+            agente.ResetPath();
         }
 
-        // Actualiza animación según velocidad real
+        // Animación de caminar
         float speedPercent = agente.velocity.magnitude / agente.speed;
         anim.SetFloat("Speed", speedPercent);
     }
 
+    void Atacar()
+    {
+        if (tiempoAtaque <= 0)
+        {
+            anim.SetTrigger("Attack"); // ejecuta anim
+            objetivo.GetComponent<JugadorVida>()?.TomarDaño(daño);
+            tiempoAtaque = tiempoEntreAtaques;
+        }
+
+        tiempoAtaque -= Time.deltaTime;
+    }
+
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.red;     // rango de persecución
         Gizmos.DrawWireSphere(transform.position, rango);
+
+        Gizmos.color = Color.yellow;  // rango de ataque
+        Gizmos.DrawWireSphere(transform.position, rangoAtaque);
     }
 }
